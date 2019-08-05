@@ -1,12 +1,9 @@
 require "spec_helper"
+require "pry"
 
 RSpec.describe "Doubles" do
-  # Instead of using instances in these tests, 
-  # replace each of these with a 'leaf' test double
   it "leaf returns expected color" do
-    tree = Tree.new
-    branch = Branch.new(tree)
-    leaf = Leaf.new(branch)
+    leaf = double("Leaf", color: "green")
 
     expect(leaf.color).to eq("green")
 
@@ -14,9 +11,8 @@ RSpec.describe "Doubles" do
   end
 
   it "leaf's branch returns expected length" do
-    tree = Tree.new
-    branch = Branch.new(tree)
-    leaf = Leaf.new(branch)
+    branch = double("Branch", length: "4 feet")
+    leaf = double("Leaf", branch: branch )
 
     expect(leaf.branch.length).to eq("4 feet")
 
@@ -25,9 +21,9 @@ RSpec.describe "Doubles" do
   end
 
   it "leaf's branch's tree returns expected bark" do
-    tree = Tree.new
-    branch = Branch.new(tree)
-    leaf = Leaf.new(branch)
+    tree = double("Tree", bark: "thick and brown")
+    branch = double("Branch", tree: tree)
+    leaf = double("Leaf", branch: branch)
 
     expect(leaf.branch.tree.bark).to eq("thick and brown")
 
